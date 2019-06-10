@@ -14,6 +14,10 @@ public class NavigationPanel extends JPanel {
     public NavigationPanel(ItemController controller) {
         this.controller = controller;
 
+        init();
+    }
+
+    private void init() {
         firstButton = new JButton();
         nextButton = new JButton();
         previousButton = new JButton();
@@ -22,28 +26,22 @@ public class NavigationPanel extends JPanel {
         setBorder(BorderFactory.createEtchedBorder());
 
         firstButton.setText("First");
-        firstButton.addActionListener(event -> {
-            controller.showFirstItem();
-        });
+        firstButton.addActionListener(event -> controller.showFirstItem());
         add(firstButton);
 
         nextButton.setText("Next");
-        nextButton.addActionListener(event -> {
-            controller.showNextItem();
-        });
+        nextButton.addActionListener(event -> controller.showNextItem());
         add(nextButton);
 
         previousButton.setText("Previous");
-        previousButton.addActionListener(event -> {
-            controller.showPreviousItem();
-        });
+        previousButton.addActionListener(event -> controller.showPreviousItem());
         add(previousButton);
 
         lastButton.setText("Last");
-        lastButton.addActionListener(event -> {
-            controller.showLastItem();
-        });
+        lastButton.addActionListener(event -> controller.showLastItem());
         add(lastButton);
+
+        setPanelEnabled(controller.getCurrentItem() != null);
     }
 
     private void setPanelEnabled(boolean isEnabled) {

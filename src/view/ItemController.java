@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class ItemController {
@@ -29,37 +30,11 @@ public class ItemController {
             connection = DbConnector.getConnection();
             loadItems();
 
-            currentItem = (items != null && !items.isEmpty()) ? getFirstItem() : null;
+            currentItem = getFirstItem().isPresent() ? getFirstItem().get() : null;
 
         } catch (SQLException e) {
             logger.severe(e.getMessage());
         }
-    }
-
-    public Item getFirstItem() {
-        i = 0;
-        currentItem = items.get(i);
-        return currentItem;
-    }
-
-    public Item getLastItem() {
-        i = items.size() - 1;
-        currentItem = items.get(i);
-        return currentItem;
-    }
-
-    public Item getNextItem() {
-        currentItem = items.get(i < items.size() - 1 ? ++i : i);
-        return currentItem;
-    }
-
-    public Item getPreviousItem() {
-        currentItem = items.get(i > 0 ? --i : i);
-        return currentItem;
-    }
-
-    public Item getCurrentItem() {
-        return currentItem;
     }
 
     private void loadItems() throws SQLException {
@@ -113,25 +88,66 @@ public class ItemController {
         }
     }
 
+    public Optional<Item> getFirstItem() {
+        if (items != null && !items.isEmpty()) {
+            i = 0;
+            currentItem = items.get(i);
+            return Optional.ofNullable(currentItem);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Item> getLastItem() {
+        if (items != null && !items.isEmpty()) {
+            i = items.size() - 1;
+            currentItem = items.get(i);
+            return Optional.of(currentItem);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Item> getNextItem() {
+        if (items != null && !items.isEmpty()) {
+            currentItem = items.get(i < items.size() - 1 ? ++i : i);
+            return Optional.of(currentItem);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Item> getPreviousItem() {
+        if (items != null && !items.isEmpty()) {
+            currentItem = items.get(i > 0 ? --i : i);
+            return Optional.of(currentItem);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Item getCurrentItem() {
+        return currentItem;
+    }
+
     public void showNextItem() {
-        view.setItemViewValues(getNextItem());
+        getNextItem().ifPresent(view::setItemViewValues);
     }
 
     public void showPreviousItem() {
-        view.setItemViewValues(getPreviousItem());
+        getPreviousItem().ifPresent(view::setItemViewValues);
     }
 
     public void showFirstItem() {
-        view.setItemViewValues(getFirstItem());
+        getFirstItem().ifPresent(view::setItemViewValues);
     }
 
     public void showLastItem() {
-        view.setItemViewValues(getLastItem());
+        getLastItem().ifPresent(view::setItemViewValues);
     }
 
     public void resetItemViewValues() {
         view.resetItemViewValues();
     }
-
 
 }
