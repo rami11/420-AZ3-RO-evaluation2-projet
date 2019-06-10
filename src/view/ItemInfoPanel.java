@@ -120,7 +120,7 @@ public class ItemInfoPanel extends JPanel {
         itemIdField.setText("");
     }
 
-    private void setPanelEditable(boolean isEditable) {
+    public void setPanelEditable(boolean isEditable) {
         itemNameField.setEditable(isEditable);
         catIdField.setEditable(isEditable);
         unitPriceField.setEditable(isEditable);

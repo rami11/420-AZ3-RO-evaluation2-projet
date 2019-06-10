@@ -146,8 +146,30 @@ public class ItemController {
         getLastItem().ifPresent(view::setItemViewValues);
     }
 
-    public void resetItemViewValues() {
-        view.resetItemViewValues();
+    public void showCurrentItem() {
+        if (currentItem != null) {
+            view.setItemViewValues(currentItem);
+        }
+    }
+
+    public void newItemButtonClick() {
+        view.setItemInfoEditable(true);
+        view.resetItemInfoValues();
+        view.disableNavigationPanel();
+        view.disableCrudPanel();
+    }
+
+    public void cancelButtonClick() {
+        view.setItemInfoEditable(false);
+        this.showCurrentItem();
+        view.enableNavigationPanel();
+        view.enableCrudPanel();
+    }
+
+    public void updateButtonClick() {
+        view.setItemInfoEditable(true);
+        view.disableNavigationPanel();
+        view.disableCrudPanel();
     }
 
 }

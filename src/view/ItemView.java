@@ -44,7 +44,27 @@ public class ItemView extends JFrame {
         itemInfoPanel.setItemViewValues(item);
     }
 
-    public void resetItemViewValues() {
+    public void resetItemInfoValues() {
         itemInfoPanel.resetItemViewValues();
+    }
+
+    public void disableNavigationPanel() {
+        navigationPanel.disablePanel();
+    }
+
+    public void disableCrudPanel() {
+        crudPanel.disablePanel();
+    }
+
+    public void enableNavigationPanel() {
+        navigationPanel.enablePanel();
+    }
+
+    public void enableCrudPanel() {
+        crudPanel.enablePanel();
+    }
+
+    public void setItemInfoEditable(boolean isEditable) {
+        itemInfoPanel.setPanelEditable(isEditable);
     }
 }

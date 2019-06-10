@@ -51,11 +51,11 @@ public class NavigationPanel extends JPanel {
         lastButton.setEnabled(isEnabled);
     }
 
-    private void disablePanel() {
+    public void disablePanel() {
         setPanelEnabled(false);
     }
 
-    private void enablePanel() {
+    public void enablePanel() {
         setPanelEnabled(true);
     }
 }

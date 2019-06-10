@@ -5,6 +5,7 @@ import javax.swing.*;
 public class CrudPanel extends JPanel {
 
     private JButton addButton;
+    private JButton updateButton;
     private JButton cancelButton;
     private JButton newButton;
     private JButton deleteButton;
@@ -14,8 +15,13 @@ public class CrudPanel extends JPanel {
     public CrudPanel(ItemController controller) {
         this.controller = controller;
 
+        init();
+    }
+
+    private void init() {
         newButton = new JButton();
         addButton = new JButton();
+        updateButton = new JButton();
         cancelButton = new JButton();
         deleteButton = new JButton();
 
@@ -23,9 +29,7 @@ public class CrudPanel extends JPanel {
 
         newButton.setText("New");
         newButton.addActionListener(event -> {
-          /*  resetItemViewValues();
-            disablePanelNorth();
-            enablePanelSouth();*/
+          controller.newItemButtonClick();
         });
         add(newButton);
 
@@ -41,7 +45,7 @@ public class CrudPanel extends JPanel {
                 itemController.addItem(item);
 
                 JOptionPane.showMessageDialog(this, "domain.bean.Item " + itemId + " added.", "Success!", JOptionPane.INFORMATION_MESSAGE);
-                resetItemViewValues();
+                resetItemInfoValues();
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Invalid value!", JOptionPane.ERROR_MESSAGE);
@@ -51,30 +55,37 @@ public class CrudPanel extends JPanel {
         });
         add(addButton);
 
+        updateButton.setText("Update");
+        updateButton.addActionListener(event -> {
+           controller.updateButtonClick();
+        });
+        add(updateButton);
+
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(event -> {
-            /*enablePanelNorth();
-            disablePanelSouth();
-            setItemViewValues(itemController.getFirstItem());*/
+           controller.cancelButtonClick();
         });
         add(cancelButton);
 
         deleteButton.setText("Delete");
         add(deleteButton);
+
+        setPanelEnabled(controller.getCurrentItem() != null);
     }
 
     private void setPanelEnabled(boolean isEnabled) {
-        newButton.setEnabled(!isEnabled);
-        addButton.setEnabled(isEnabled);
-        cancelButton.setEnabled(isEnabled);
-        deleteButton.setEnabled(!isEnabled);
+        newButton.setEnabled(isEnabled);
+        addButton.setEnabled(!isEnabled);
+        updateButton.setEnabled(isEnabled);
+        cancelButton.setEnabled(!isEnabled);
+        deleteButton.setEnabled(isEnabled);
     }
 
-    private void enablePanel() {
+    public void enablePanel() {
         setPanelEnabled(true);
     }
 
-    private void disablePanel() {
+    public void disablePanel() {
         setPanelEnabled(false);
     }
 }

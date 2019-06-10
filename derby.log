@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Mon Jun 10 17:22:25 EDT 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-016b-4345-5254-00000d5511f8 
-on database directory /home/rsn/IdeaProjects/420-AZ3-RO-evaluation2-projet/ItemsDB with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
-Loaded from file:/home/rsn/data/java/jdk-8u71/jdk1.8.0_71/db/lib/derby.jar
+Mon Jun 10 19:13:42 EDT 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-016b-43ab-3636-0000060d6ea8 
+on database directory /Users/rsn/IdeaProjects/AEC/MyProjects/Az3Eval2RamiSerapian/ItemsDB with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/db/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_121-b13
-user.dir=/home/rsn/IdeaProjects/420-AZ3-RO-evaluation2-projet
-os.name=Linux
-os.arch=amd64
-os.version=4.4.0-150-generic
+java.runtime.version=1.8.0_101-b13
+user.dir=/Users/rsn/IdeaProjects/AEC/MyProjects/Az3Eval2RamiSerapian
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.14.5
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
