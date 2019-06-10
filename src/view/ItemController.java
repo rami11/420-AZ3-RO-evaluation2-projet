@@ -1,5 +1,7 @@
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+package view;
+
+import domain.bean.Item;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +18,10 @@ public class ItemController {
     private List<Item> items = new ArrayList<>();
     private Connection connection;
 
-    private PropertyChangeSupport support;
+    private ItemView view;
 
-    public ItemController() {
-        support = new PropertyChangeSupport(this);
+    public ItemController(ItemView view) {
+        this.view = view;
 
         try {
             connection = DbConnector.getConnection();
@@ -28,14 +30,6 @@ public class ItemController {
         } catch (SQLException e) {
             logger.severe(e.getMessage());
         }
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
-        support.addPropertyChangeListener(pcl);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener pcl) {
-        support.removePropertyChangeListener(pcl);
     }
 
     public Item getFirstItem() {
@@ -105,6 +99,14 @@ public class ItemController {
             logger.severe(e.getMessage());
             throw new SQLException("Delete item failed!");
         }
+    }
+
+    public void setItemViewValues(Item item) {
+        view.setItemViewValues(item);
+    }
+
+    public void resetItemViewValues() {
+        view.resetItemViewValues();
     }
 
 

@@ -1,3 +1,5 @@
+package domain.bean;
+
 public class Category {
     private int id;
     private String name;
@@ -9,7 +11,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "domain.bean.Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

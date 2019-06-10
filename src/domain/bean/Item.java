@@ -1,3 +1,5 @@
+package domain.bean;
+
 import java.util.Objects;
 
 public class Item {
@@ -49,7 +51,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
+        return "domain.bean.Item{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", unitPrice=" + unitPrice +
