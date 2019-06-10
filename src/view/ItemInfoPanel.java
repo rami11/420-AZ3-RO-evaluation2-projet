@@ -17,6 +17,10 @@ public class ItemInfoPanel extends JPanel {
     public ItemInfoPanel(ItemController controller) {
         this.controller = controller;
 
+        init();
+    }
+
+    private void init() {
         JLabel idLabel = new JLabel();
         itemNameField = new JTextField();
         JLabel nameLabel = new JLabel();
@@ -30,7 +34,7 @@ public class ItemInfoPanel extends JPanel {
         GridBagConstraints gridBagConstraints;
         setLayout(new GridBagLayout());
 
-        idLabel.setText("domain.bean.Item ID");
+        idLabel.setText("Item ID");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new Insets(9, 0, 9, 0);
         add(idLabel, gridBagConstraints);
@@ -44,7 +48,7 @@ public class ItemInfoPanel extends JPanel {
         gridBagConstraints.insets = new Insets(8, 0, 8, 0);
         add(itemIdField, gridBagConstraints);
 
-        nameLabel.setText("domain.bean.Item Name");
+        nameLabel.setText("Item Name");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -60,7 +64,7 @@ public class ItemInfoPanel extends JPanel {
         gridBagConstraints.insets = new Insets(9, 0, 9, 0);
         add(itemNameField, gridBagConstraints);
 
-        catIdLabel.setText("domain.bean.Category ID");
+        catIdLabel.setText("Category ID");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;

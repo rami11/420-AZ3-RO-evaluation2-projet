@@ -42,8 +42,6 @@ public class ItemView extends JFrame {
 
     public void setItemViewValues(Item item) {
         itemInfoPanel.setItemViewValues(item);
-
-        System.out.println("Current item: " + controller.getCurrentItem());
     }
 
     public void resetItemViewValues() {
