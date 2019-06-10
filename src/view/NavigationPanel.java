@@ -23,25 +23,25 @@ public class NavigationPanel extends JPanel {
 
         firstButton.setText("First");
         firstButton.addActionListener(event -> {
-            controller.setItemViewValues(controller.getFirstItem());
+            controller.showFirstItem();
         });
         add(firstButton);
 
         nextButton.setText("Next");
         nextButton.addActionListener(event -> {
-            controller.setItemViewValues(controller.getNextItem());
+            controller.showNextItem();
         });
         add(nextButton);
 
         previousButton.setText("Previous");
         previousButton.addActionListener(event -> {
-            controller.setItemViewValues(controller.getPreviousItem());
+            controller.showPreviousItem();
         });
         add(previousButton);
 
         lastButton.setText("Last");
         lastButton.addActionListener(event -> {
-            controller.setItemViewValues(controller.getLastItem());
+            controller.showLastItem();
         });
         add(lastButton);
     }

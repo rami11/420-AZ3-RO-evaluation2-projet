@@ -12,7 +12,6 @@ public class ItemView extends JFrame {
     private ItemInfoPanel itemInfoPanel;
 
     private ItemController controller;
-    private Item item = new Item();
 
     /**
      * Creates new form view.ItemView
@@ -34,7 +33,7 @@ public class ItemView extends JFrame {
         getContentPane().add(crudPanel, BorderLayout.SOUTH);
         getContentPane().add(itemInfoPanel, BorderLayout.CENTER);
 
-        controller.setItemViewValues(controller.getFirstItem());
+        controller.showFirstItem();
        /* enablePanelNorth();
         disablePanelSouth();*/
 
@@ -43,6 +42,8 @@ public class ItemView extends JFrame {
 
     public void setItemViewValues(Item item) {
         itemInfoPanel.setItemViewValues(item);
+
+        System.out.println("Current item: " + controller.getCurrentItem());
     }
 
     public void resetItemViewValues() {

@@ -16,6 +16,8 @@ public class ItemController {
     private Logger logger = Logger.getLogger(ItemController.class.getSimpleName());
 
     private List<Item> items = new ArrayList<>();
+    private Item currentItem;
+
     private Connection connection;
 
     private ItemView view;
@@ -27,6 +29,8 @@ public class ItemController {
             connection = DbConnector.getConnection();
             loadItems();
 
+            currentItem = (items != null && !items.isEmpty()) ? getFirstItem() : null;
+
         } catch (SQLException e) {
             logger.severe(e.getMessage());
         }
@@ -34,20 +38,28 @@ public class ItemController {
 
     public Item getFirstItem() {
         i = 0;
-        return items.get(i);
+        currentItem = items.get(i);
+        return currentItem;
     }
 
     public Item getLastItem() {
         i = items.size() - 1;
-        return items.get(i);
+        currentItem = items.get(i);
+        return currentItem;
     }
 
     public Item getNextItem() {
-        return items.get(i < items.size() - 1 ? ++i : i);
+        currentItem = items.get(i < items.size() - 1 ? ++i : i);
+        return currentItem;
     }
 
     public Item getPreviousItem() {
-        return items.get(i > 0 ? --i : i);
+        currentItem = items.get(i > 0 ? --i : i);
+        return currentItem;
+    }
+
+    public Item getCurrentItem() {
+        return currentItem;
     }
 
     private void loadItems() throws SQLException {
@@ -101,8 +113,20 @@ public class ItemController {
         }
     }
 
-    public void setItemViewValues(Item item) {
-        view.setItemViewValues(item);
+    public void showNextItem() {
+        view.setItemViewValues(getNextItem());
+    }
+
+    public void showPreviousItem() {
+        view.setItemViewValues(getPreviousItem());
+    }
+
+    public void showFirstItem() {
+        view.setItemViewValues(getFirstItem());
+    }
+
+    public void showLastItem() {
+        view.setItemViewValues(getLastItem());
     }
 
     public void resetItemViewValues() {
