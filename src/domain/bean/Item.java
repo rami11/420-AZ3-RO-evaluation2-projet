@@ -12,6 +12,10 @@ public class Item {
     public Item() {
     }
 
+    public Item(int id) {
+        this.id = id;
+    }
+
     public Item(int id, String name, double unitPrice, int categoryId) {
         this.id = id;
         this.name = name;
@@ -40,13 +44,12 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return id == item.id &&
-                Objects.equals(name, item.name);
+        return id == item.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 
     @Override

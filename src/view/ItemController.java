@@ -2,10 +2,7 @@ package view;
 
 import domain.bean.Item;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,34 +54,39 @@ public class ItemController {
         }
     }
 
-    public void addItem(Item newItem) throws SQLException {
-        String query = "INSERT INTO ITEM (ID, NAME, UNIT_PRICE, CATEGORY_ID) VALUES ("
-                + newItem.getId() + ","
-                + "'" + newItem.getName() + "'" + ","
-                + newItem.getUnitPrice() + ","
-                + newItem.getCategoryId()
-                + ")";
+    public void addItem() throws SQLException {
+        try {
+            String query = "INSERT INTO ITEM (ID, NAME, UNIT_PRICE, CATEGORY_ID) VALUES (?, ?, ?, ?)";
 
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(query);
-            items.add(newItem);
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, view.getItemId());
+                pstmt.setString(2, view.getItemName());
+                pstmt.setDouble(3, view.getUnitPrice());
+                pstmt.setInt(4, view.getCategoryId());
+                pstmt.executeUpdate();
+                items.add(new Item(view.getItemId(), view.getItemName(), view.getUnitPrice(), view.getCategoryId()));
+            }
 
-        } catch (SQLException e) {
+        } catch (NumberFormatException | SQLException e) {
             logger.severe(e.getMessage());
             throw e;
         }
     }
 
-    public void deleteItem(int itemId) throws SQLException {
-        String query = "DELETE FROM ITEM WHERE ID = " + itemId;
+    public void deleteItem() throws SQLException {
+        try {
+            String sql = "DELETE FROM ITEM WHERE ID = ?";
 
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(query);
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                pstmt.setInt(1, view.getItemId());
+                pstmt.executeUpdate();
 
+                items.remove(new Item(view.getItemId()));
+            }
 
-        } catch (SQLException e) {
+        } catch (NumberFormatException | SQLException e) {
             logger.severe(e.getMessage());
-            throw new SQLException("Delete item failed!");
+            throw e;
         }
     }
 
@@ -127,7 +129,11 @@ public class ItemController {
     }
 
     public Item getCurrentItem() {
-        return currentItem;
+        if (items != null && !items.isEmpty()) {
+            return items.get(i);
+        } else {
+            return null;
+        }
     }
 
     public void showNextItem() {
@@ -148,28 +154,28 @@ public class ItemController {
 
     public void showCurrentItem() {
         if (currentItem != null) {
-            view.setItemViewValues(currentItem);
+            view.setItemViewValues(getCurrentItem());
         }
     }
 
     public void newItemButtonClick() {
-        view.setItemInfoEditable(true);
+        //view.setItemInfoEditable(true);
         view.resetItemInfoValues();
         view.disableNavigationPanel();
         view.disableCrudPanel();
     }
 
     public void cancelButtonClick() {
-        view.setItemInfoEditable(false);
+        //view.setItemInfoEditable(false);
         this.showCurrentItem();
         view.enableNavigationPanel();
         view.enableCrudPanel();
     }
 
-    public void updateButtonClick() {
-        view.setItemInfoEditable(true);
+    /*public void updateButtonClick() {
+        //view.setItemInfoEditable(true);
         view.disableNavigationPanel();
         view.disableCrudPanel();
-    }
+    }*/
 
 }

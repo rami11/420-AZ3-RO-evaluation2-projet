@@ -103,7 +103,7 @@ public class ItemInfoPanel extends JPanel {
         gridBagConstraints.insets = new Insets(69, 0, 30, 0);
         add(infoLabel, gridBagConstraints);
 
-        setPanelEditable(controller.getCurrentItem() == null);
+        //setPanelEditable(controller.getCurrentItem() == null);
     }
 
     public void setItemViewValues(Item item) {
@@ -125,5 +125,21 @@ public class ItemInfoPanel extends JPanel {
         catIdField.setEditable(isEditable);
         unitPriceField.setEditable(isEditable);
         itemIdField.setEditable(isEditable);
+    }
+
+    public int getItemId() throws NumberFormatException {
+        return Integer.parseInt(itemIdField.getText());
+    }
+
+    public String getItemName() {
+        return itemNameField.getText();
+    }
+
+    public int getCategoryId() throws NumberFormatException {
+        return Integer.parseInt(catIdField.getText());
+    }
+
+    public double getUnitPrice() throws NumberFormatException {
+        return Double.parseDouble(unitPriceField.getText());
     }
 }

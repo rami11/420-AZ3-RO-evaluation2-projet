@@ -67,4 +67,20 @@ public class ItemView extends JFrame {
     public void setItemInfoEditable(boolean isEditable) {
         itemInfoPanel.setPanelEditable(isEditable);
     }
+
+    public int getItemId() throws NumberFormatException {
+        return itemInfoPanel.getItemId();
+    }
+
+    public String getItemName() {
+        return itemInfoPanel.getItemName();
+    }
+
+    public int getCategoryId() throws NumberFormatException {
+        return itemInfoPanel.getCategoryId();
+    }
+
+    public double getUnitPrice() throws NumberFormatException {
+        return itemInfoPanel.getUnitPrice();
+    }
 }

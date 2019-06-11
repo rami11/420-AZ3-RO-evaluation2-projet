@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 public class CrudPanel extends JPanel {
 
@@ -29,45 +30,49 @@ public class CrudPanel extends JPanel {
 
         newButton.setText("New");
         newButton.addActionListener(event -> {
-          controller.newItemButtonClick();
+            controller.newItemButtonClick();
         });
         add(newButton);
 
         addButton.setText("Add");
         addButton.addActionListener(event -> {
-           /* try {
-                int itemId = Integer.parseInt(itemIdField.getText());
-                String name = itemNameField.getText();
-                double unitPrice = Double.parseDouble(unitPriceField.getText());
-                int categoryId = Integer.parseInt(catIdField.getText());
+            try {
+                controller.addItem();
 
-                item = new domain.bean.Item(itemId, name, unitPrice, categoryId);
-                itemController.addItem(item);
+                JOptionPane.showMessageDialog(this, "Item added.", "Success!", JOptionPane.INFORMATION_MESSAGE);
+                controller.newItemButtonClick();
 
-                JOptionPane.showMessageDialog(this, "domain.bean.Item " + itemId + " added.", "Success!", JOptionPane.INFORMATION_MESSAGE);
-                resetItemInfoValues();
-
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Invalid value!", JOptionPane.ERROR_MESSAGE);
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Update failed!", JOptionPane.ERROR_MESSAGE);
-            }*/
+            } catch (NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Update failed!", JOptionPane.ERROR_MESSAGE);
+            }
         });
         add(addButton);
 
         updateButton.setText("Update");
         updateButton.addActionListener(event -> {
-           controller.updateButtonClick();
+            //controller.updateButtonClick();
+            JOptionPane.showMessageDialog(this, "Handle update directly!");
         });
         add(updateButton);
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(event -> {
-           controller.cancelButtonClick();
+            controller.cancelButtonClick();
         });
         add(cancelButton);
 
         deleteButton.setText("Delete");
+        deleteButton.addActionListener(event -> {
+            try {
+                controller.deleteItem();
+
+                JOptionPane.showMessageDialog(this, "Item deleted.", "Success!", JOptionPane.INFORMATION_MESSAGE);
+                controller.showCurrentItem();
+
+            } catch (NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Update failed!", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         add(deleteButton);
 
         setPanelEnabled(controller.getCurrentItem() != null);
