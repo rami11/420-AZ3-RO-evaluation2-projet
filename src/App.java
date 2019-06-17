@@ -1,9 +1,12 @@
+import view.ItemController;
+import view.ItemModel;
 import view.ItemView;
 
 import java.awt.*;
 import java.util.logging.Logger;
 
 public class App {
+    private static Logger logger = Logger.getLogger(App.class.getSimpleName());
 
     /**
      * @param args the command line arguments
@@ -16,18 +19,18 @@ public class App {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ItemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ItemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ItemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ItemView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         EventQueue.invokeLater(() -> {
-            new ItemView().setVisible(true);
+            ItemView view = new ItemView();
+            ItemModel model = new ItemModel();
+
+            // Controller
+            new ItemController(view, model);
+
+            view.setVisible(true);
         });
     }
 

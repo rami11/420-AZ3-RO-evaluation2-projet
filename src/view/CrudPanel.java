@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-import java.sql.SQLException;
 
 public class CrudPanel extends JPanel {
 
@@ -11,11 +10,7 @@ public class CrudPanel extends JPanel {
     private JButton newButton;
     private JButton deleteButton;
 
-    private ItemController controller;
-
-    public CrudPanel(ItemController controller) {
-        this.controller = controller;
-
+    public CrudPanel() {
         init();
     }
 
@@ -29,56 +24,24 @@ public class CrudPanel extends JPanel {
         setBorder(BorderFactory.createEtchedBorder());
 
         newButton.setText("New");
-        newButton.addActionListener(event -> {
-            controller.newItemButtonClick();
-        });
         add(newButton);
 
         addButton.setText("Add");
-        addButton.addActionListener(event -> {
-            try {
-                controller.addItem();
-
-                JOptionPane.showMessageDialog(this, "Item added.", "Success!", JOptionPane.INFORMATION_MESSAGE);
-                controller.newItemButtonClick();
-
-            } catch (NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Update failed!", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+        addButton.setEnabled(false);
         add(addButton);
 
-        updateButton.setText("Update");
-        updateButton.addActionListener(event -> {
-            //controller.updateButtonClick();
-            JOptionPane.showMessageDialog(this, "Handle update directly!");
-        });
-        add(updateButton);
-
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(event -> {
-            controller.cancelButtonClick();
-        });
+        cancelButton.setEnabled(false);
         add(cancelButton);
 
+        updateButton.setText("Update");
+        add(updateButton);
+
         deleteButton.setText("Delete");
-        deleteButton.addActionListener(event -> {
-            try {
-                controller.deleteItem();
-
-                JOptionPane.showMessageDialog(this, "Item deleted.", "Success!", JOptionPane.INFORMATION_MESSAGE);
-                controller.showCurrentItem();
-
-            } catch (NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Update failed!", JOptionPane.ERROR_MESSAGE);
-            }
-        });
         add(deleteButton);
-
-        setPanelEnabled(controller.getCurrentItem() != null);
     }
 
-    private void setPanelEnabled(boolean isEnabled) {
+    public void setPanelEnabled(boolean isEnabled) {
         newButton.setEnabled(isEnabled);
         addButton.setEnabled(!isEnabled);
         updateButton.setEnabled(isEnabled);
@@ -86,11 +49,23 @@ public class CrudPanel extends JPanel {
         deleteButton.setEnabled(isEnabled);
     }
 
-    public void enablePanel() {
-        setPanelEnabled(true);
+    public JButton getNewButton() {
+        return newButton;
     }
 
-    public void disablePanel() {
-        setPanelEnabled(false);
+    public JButton getUpdateButton() {
+        return updateButton;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
     }
 }

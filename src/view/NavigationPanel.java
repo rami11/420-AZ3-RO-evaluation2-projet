@@ -9,11 +9,7 @@ public class NavigationPanel extends JPanel {
     private JButton previousButton;
     private JButton lastButton;
 
-    private ItemController controller;
-
-    public NavigationPanel(ItemController controller) {
-        this.controller = controller;
-
+    public NavigationPanel() {
         init();
     }
 
@@ -26,25 +22,19 @@ public class NavigationPanel extends JPanel {
         setBorder(BorderFactory.createEtchedBorder());
 
         firstButton.setText("First");
-        firstButton.addActionListener(event -> controller.showFirstItem());
         add(firstButton);
 
         nextButton.setText("Next");
-        nextButton.addActionListener(event -> controller.showNextItem());
         add(nextButton);
 
         previousButton.setText("Previous");
-        previousButton.addActionListener(event -> controller.showPreviousItem());
         add(previousButton);
 
         lastButton.setText("Last");
-        lastButton.addActionListener(event -> controller.showLastItem());
         add(lastButton);
-
-        setPanelEnabled(controller.getCurrentItem() != null);
     }
 
-    private void setPanelEnabled(boolean isEnabled) {
+    public void setPanelEnabled(boolean isEnabled) {
         firstButton.setEnabled(isEnabled);
         nextButton.setEnabled(isEnabled);
         previousButton.setEnabled(isEnabled);
@@ -57,5 +47,21 @@ public class NavigationPanel extends JPanel {
 
     public void enablePanel() {
         setPanelEnabled(true);
+    }
+
+    public JButton getFirstButton() {
+        return firstButton;
+    }
+
+    public JButton getPreviousButton() {
+        return previousButton;
+    }
+
+    public JButton getNextButton() {
+        return nextButton;
+    }
+
+    public JButton getLastButton() {
+        return lastButton;
     }
 }

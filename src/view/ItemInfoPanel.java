@@ -12,11 +12,7 @@ public class ItemInfoPanel extends JPanel {
     private JTextField catIdField;
     private JTextField itemIdField;
 
-    private ItemController controller;
-
-    public ItemInfoPanel(ItemController controller) {
-        this.controller = controller;
-
+    public ItemInfoPanel() {
         init();
     }
 
@@ -102,8 +98,6 @@ public class ItemInfoPanel extends JPanel {
         gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new Insets(69, 0, 30, 0);
         add(infoLabel, gridBagConstraints);
-
-        //setPanelEditable(controller.getCurrentItem() == null);
     }
 
     public void setItemViewValues(Item item) {
@@ -118,13 +112,6 @@ public class ItemInfoPanel extends JPanel {
         catIdField.setText("");
         unitPriceField.setText("");
         itemIdField.setText("");
-    }
-
-    public void setPanelEditable(boolean isEditable) {
-        itemNameField.setEditable(isEditable);
-        catIdField.setEditable(isEditable);
-        unitPriceField.setEditable(isEditable);
-        itemIdField.setEditable(isEditable);
     }
 
     public int getItemId() throws NumberFormatException {
